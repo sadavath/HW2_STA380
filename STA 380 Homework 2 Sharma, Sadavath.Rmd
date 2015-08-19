@@ -7,13 +7,63 @@ output: html_document
 
 ###Question1: 
 
+```{r}
+library (tm)
+airports= read.csv('ABIA.txt')
+airports$DepTime_hour=as.integer(DepTime/100)
+airports$ArrTime_hour=as.integer(ArrTime/100)
+attach(airports)
+names(airports)
+
+dep_agg    <- aggregate(DepDelay~DayOfWeek+DepTime_hour,airports,FUN='sum')
+library(ggplot2)
+library(RColorBrewer)
+ggplot(dep_agg, aes(DepTime_hour,y=DayOfWeek))+
+  geom_tile(aes(fill=DepDelay))+
+  scale_fill_gradientn(colours=brewer.pal(9,"Greys"),
+                       breaks=seq(0,max(dep_agg$DepDelay),by=3000))+
+  scale_y_continuous(breaks=7:1,labels=c("Sun","Sat","Fry","Thur","Wed","Tue","Mon"))+
+  labs(x="Time of Day (hours)", y="Day of Week")+ coord_fixed() 
+
+
+
+arr_agg    <- aggregate(ArrDelay~DayOfWeek+ArrTime_hour,airports,FUN='sum')
+
+ggplot(arr_agg, aes(ArrTime_hour,y=DayOfWeek))+
+  geom_tile(aes(fill=ArrDelay))+
+  scale_fill_gradientn(colours=brewer.pal(9,"Greys"),
+                       breaks=seq(0,max(arr_agg$ArrDelay),by=3000))+
+  scale_y_continuous(breaks=7:1,labels=c("Sun","Sat","Fry","Thur","Wed","Tue","Mon"))+
+  labs(x="Time of Day (hours)", y="Day of Week")+ coord_fixed() 
+
+arr_agg_month    <- aggregate(ArrDelay~DayOfWeek+Month,airports,FUN='sum')
+
+ggplot(arr_agg_month, aes(Month,y=DayOfWeek))+
+  geom_tile(aes(fill=ArrDelay))+
+  scale_fill_gradientn(colours=brewer.pal(9,"Greys"),
+                       breaks=seq(0,max(arr_agg_month$ArrDelay),by=3000))+
+  scale_y_continuous(breaks=7:1,labels=c("Sun","Sat","Fry","Thur","Wed","Tue","Mon"))+ 
+  scale_x_continuous(breaks=1:12, labels=c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"))+
+  labs(x="Month", y="Day of Week")+ coord_fixed() 
+
+
+Dep_agg_month    <- aggregate(DepDelay~DayOfWeek+Month,airports,FUN='sum')
+
+ggplot(Dep_agg_month, aes(Month,y=DayOfWeek))+
+  geom_tile(aes(fill=DepDelay))+
+  scale_fill_gradientn(colours=brewer.pal(9,"Greys"),
+                       breaks=seq(0,max(Dep_agg_month$DepDelay),by=3000))+
+  scale_y_continuous(breaks=7:1,labels=c("Sun","Sat","Fry","Thur","Wed","Tue","Mon"))+ scale_x_continuous(breaks=1:12, labels=c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"))+
+  labs(x="Month", y="Day of Week")+ coord_fixed()
+```
+
 #### Departure Delays are worst on the Mondays of the month March. The second worst delays are on the Sundays of June.The months of September, October and November are least affected by Departure Delays.
 
 #### Departure Delays are mostly between 1600 and 2100 hours. The most affected weekdays are Thursdays, Fridays and Sundays
 
 #### Mondays in the month of March and Fridays in the month of April are the worst effected by the delays in Arrival
 
-#### Arrival Delays are mostly between 1600 and 2200 hours, a lot similar to the Delay Delays. 
+#### Arrival Delays are mostly between 1600 and 2200 hours, a lot similar to the Delay Delays.
 
 
 ###Question2: Author Attribution
