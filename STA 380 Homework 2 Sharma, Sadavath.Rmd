@@ -270,4 +270,4 @@ inspect(subset(musicrules, subset=support > .012 & confidence > 0.58))
 
 #### Based on the result, we infer that: (a) citrus fruit, root vegetables are bought together with 'other vegetables' (b) root vegetables, tropical fruit is bought together with 'other vegetables' (c) Curd, yogurt are bought along with whole milk (d) citrus fruit, root vegetables are bought along with other vegetables (e) root vegetables, tropical fruit are bought along with other vegetables
 
-#### These item sets make sense as someone who most of these items are often purchased together in the grocery store
+#### These item sets make sense as most of these items are often purchased together in the grocery store
