@@ -8,8 +8,7 @@ output: html_document
 ###Question1: 
 
 ```{r}
-library (tm)
-airports= read.csv('ABIA.txt')
+read.csv("https://raw.githubusercontent.com/jgscott/STA380/master/data/ABIA.csv")
 airports$DepTime_hour=as.integer(DepTime/100)
 airports$ArrTime_hour=as.integer(ArrTime/100)
 attach(airports)
@@ -86,7 +85,7 @@ readerPlain = function(fname){
 
 #### Now, we create the Training Corpus. The sys.glob function here is a function to do wildcard expansion on file paths.  
 ```{r}
-author_dirs = Sys.glob('./ReutersC50/C50train/*')
+author_dirs = Sys.glob("https://github.com/jgscott/STA380/tree/master/data/ReutersC50/C50train/*")
 file_list = NULL
 train_labels = NULL
 for(author in author_dirs) {
@@ -127,7 +126,7 @@ DTM_train = removeSparseTerms(DTM_train, 0.975)
 
 #### Creating the Testing Corpus. Just like the training corpus, the sys.glob function here is a function to do wildcard expansion on file paths
 ```{r}
-author_dirs = Sys.glob('./ReutersC50/C50test/*')
+author_dirs = Sys.glob("https://github.com/jgscott/STA380/tree/master/data/ReutersC50/C50test/*")
 file_list = NULL
 test_labels = NULL
 for(author in author_dirs) {
@@ -233,7 +232,7 @@ library(arules)
 
 ##### Read in the groceries file from users
 ```{r}
-groceries1=read.transactions("C:/Users/Sadavath/Desktop/STA380-master/data/groceries.txt", format ="basket", sep = ",",
+groceries1=read.transactions("https://raw.githubusercontent.com/jgscott/STA380/master/data/groceries.txt", format ="basket", sep = ",",
                              rm.duplicates = TRUE)
 ```
 
